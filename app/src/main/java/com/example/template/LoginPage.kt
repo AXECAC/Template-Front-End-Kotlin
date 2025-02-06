@@ -50,9 +50,9 @@ class LoginPage : AppCompatActivity() {
             removespaces(inemail.text.toString()),
             removespaces(inpassword.text.toString())
         )
-        viewModel.myStringResponse.observe(this, Observer {
+        viewModel.myUnitResponse.observe(this, Observer {
                 response ->
-            if (response.body() == null) {
+            if (response == null) {
                 Toast.makeText(this, "No Response", Toast.LENGTH_SHORT).show()
             } else if (response.code() != 200) {
                 var msg = response.code().toString()
@@ -61,11 +61,12 @@ class LoginPage : AppCompatActivity() {
                 }
                 Log.i("ERROR", "HASH ERROR")
                 Toast.makeText(this, "ERROR: ".plus(msg), Toast.LENGTH_SHORT).show()
-            }  else {
+            } else if (response.code() == 200) {
                 Toast.makeText(this, "Success".plus(response.body()), Toast.LENGTH_SHORT).show()
-                sessionHash.value = response.body()
-                //writehash(this, sessionHash.value!!)
+                globalEmail.value = removespaces(inemail.text.toString()) //response.body()
             }
+            //writehash(this, sessionHash.value!!)
+
         })
         /*
         // should I put it before the response observer?
@@ -99,11 +100,11 @@ class LoginPage : AppCompatActivity() {
         })
         LEGACY
          */
-        sessionHash.observe(this, Observer {
+        globalEmail.observe(this, Observer {
             //userrole.value = inrole.text.toString()
             response ->
             navigationhub(this, "MAIN MENU")
-            this.finish()
+            //this.finish()
         })
     }
     fun tosignuppage(view: View?) {

@@ -1,6 +1,6 @@
 package com.example.template.model
 
 data class LogInForm(
-    val email: String,
-    val password: String
+    val Email: String,
+    val Password: String
 )

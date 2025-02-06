@@ -97,7 +97,7 @@ class Repository {
     suspend fun login(
         email: String,
         password: String
-    ) : Response<String>
+    ) : Response<Unit>
     {
         //LoggedInUser_instance = LoggedInUser("", email, password)
         val temp: LogInForm = LogInForm(
