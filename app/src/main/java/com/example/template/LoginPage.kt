@@ -33,6 +33,7 @@ class LoginPage : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
     }
+
     fun signin(view: View?) {
         if (removespaces(inemail.text.toString()) == "" ||
             removespaces(inpassword.text.toString()) == "") {
@@ -58,18 +59,19 @@ class LoginPage : AppCompatActivity() {
                 if (response.code() == 404) {
                     msg = "No such user"
                 }
-                Log.i("ERROR", "ROLE ERROR")
+                Log.i("ERROR", "HASH ERROR")
                 Toast.makeText(this, "ERROR: ".plus(msg), Toast.LENGTH_SHORT).show()
             }  else {
                 Toast.makeText(this, "Success".plus(response.body()), Toast.LENGTH_SHORT).show()
-                userhash.value = response.body()
-                writehash(this, userhash.value!!)
+                sessionHash.value = response.body()
+                //writehash(this, sessionHash.value!!)
             }
         })
+        /*
         // should I put it before the response observer?
-        userhash.observe(this, Observer {
+        sessionHash.observe(this, Observer {
             Toast.makeText(this, "Asking for the role", Toast.LENGTH_SHORT).show()
-            viewModel.getRole()
+            // viewModel.getRole()
             //navigationhub(this, userrole.value!!)
             //this.finish()
             viewModel.myStringResponse.observe(this, Observer {
@@ -94,6 +96,14 @@ class LoginPage : AppCompatActivity() {
                 navigationhub(this, userrole.value!!)
                 this.finish()
             }
+        })
+        LEGACY
+         */
+        sessionHash.observe(this, Observer {
+            //userrole.value = inrole.text.toString()
+            response ->
+            navigationhub(this, "MAIN MENU")
+            this.finish()
         })
     }
     fun tosignuppage(view: View?) {

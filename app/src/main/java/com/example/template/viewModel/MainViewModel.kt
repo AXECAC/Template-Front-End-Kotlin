@@ -27,6 +27,7 @@ class MainViewModel(private val repository: Repository): ViewModel() {
         }
     }
      */
+    /*
     fun getDevs(context: Context) {
         try {
             viewModelScope.launch {
@@ -37,19 +38,20 @@ class MainViewModel(private val repository: Repository): ViewModel() {
             Toast.makeText(context, "Try again.", Toast.LENGTH_SHORT).show()
         }
     }
+    LEGACY
+     */
     fun register(
         email: String,
         password: String,
-        fullname: String,
-        role: String,
-        organizationid: Int
+        firstname: String,
+        secondname: String
     ) {
         viewModelScope.launch {
-            val resp = repository.register(email, password, fullname, role, organizationid)
+            val resp = repository.register(email, password, firstname, secondname)
             myStringResponse.value = resp
         }
     }
-
+    /*
     fun devregister(
         email: String,
         password: String,
@@ -62,8 +64,9 @@ class MainViewModel(private val repository: Repository): ViewModel() {
             myStringResponse.value = response
         }
     }
-
-
+    LEGACY
+     */
+    /*
     fun delete(requesteduser: Users) {
         viewModelScope.launch {
             val response = repository.delete(
@@ -76,6 +79,8 @@ class MainViewModel(private val repository: Repository): ViewModel() {
             myStringResponse.value = response
         }
     }
+    LEGACY
+     */
     fun login(
         email: String,
         password: String
@@ -85,11 +90,13 @@ class MainViewModel(private val repository: Repository): ViewModel() {
             myStringResponse.value = response
         }
     }
-
+    /*
     fun getRole() {
         viewModelScope.launch {
             val response = repository.getRole()
             myStringResponse.value = response
         }
     }
+    LEGACY
+     */
 }

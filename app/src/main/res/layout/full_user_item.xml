@@ -24,48 +24,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="EMAIL: " />
+
     <TextView
-        android:id="@+id/fullname"
+        android:id="@+id/firstname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
         android:layout_marginTop="55dp"
-        android:layout_marginLeft="15dp"
+        android:text="FIRSTNAME: " />
+
+    <TextView
+        android:id="@+id/secondname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="FULLNAME: " />
-    <TextView
-        android:id="@+id/role"
+        android:layout_marginLeft="15dp"
         android:layout_marginTop="75dp"
-        android:layout_marginLeft="15dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ROLE: " />
-    <TextView
-        android:id="@+id/organization_id"
-        android:layout_marginTop="95dp"
-        android:layout_marginLeft="15dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ORG_ID: " />
-    <TextView
-        android:id="@+id/done"
-        android:layout_marginTop="115dp"
-        android:layout_marginLeft="15dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="DONE: " />
-    <TextView
-        android:id="@+id/score"
-        android:layout_marginTop="135dp"
-        android:layout_marginLeft="15dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="SCORE: " />
-    <TextView
-        android:id="@+id/current"
-        android:layout_marginTop="155dp"
-        android:layout_marginLeft="15dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="CURRENT: " />
+        android:text="SECONDNAME: " />
 
     <Button
         android:id="@+id/change"

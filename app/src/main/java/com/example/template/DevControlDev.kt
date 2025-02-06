@@ -38,7 +38,7 @@ class DevControlDev : AppCompatActivity() {
         //usersAdapter.notifyDataSetChanged()
     }
     fun refresh(view: View?) {
-        viewModel.getDevs(this)
+        //viewModel.getDevs(this)
         //usersAdapter.notify()
         //recyclerView.addOnItemTouchListener()
         //recyclerView.Recycler().clear()
@@ -55,7 +55,7 @@ class DevControlDev : AppCompatActivity() {
 
     //val obs =
     fun deleteuser(view: View?) {
-        viewModel.delete(deletionrequesteduser)
+        //viewModel.delete(deletionrequesteduser)
 
         viewModel.myCResponse.observe(this, Observer{
                 response ->

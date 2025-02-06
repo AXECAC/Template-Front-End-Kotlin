@@ -27,7 +27,7 @@ fun todevmenupage(context: Context) {
 fun navigationhub(context: Context, role: String) {
     when (role) {
         "DEV" -> todevmenupage(context)
-        "STU" -> println("no such menu yet")
+        "MAIN MENU" -> println("no such menu yet")
         else -> tosignuppage(context)
     }
 }

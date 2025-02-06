@@ -1,9 +1,10 @@
 package com.example.template.model
-
+/*
+IT'S LEGACY
 data class RegistrationForm(
     val email: String,
     val password: String,
-    val fullname: String,
-    val role: String,
-    val organization_id: Int
+    val firstname: String,
+    val secondname: String
 )
+*/

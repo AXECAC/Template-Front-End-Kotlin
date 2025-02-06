@@ -1,5 +1,5 @@
 package com.example.template.model
-
+/*
 data class DevRegForm(
     val email: String,
     val password: String,
@@ -8,3 +8,5 @@ data class DevRegForm(
     val organization_id: Int,
     val hash: String //val user: LoggedInUser
 )
+LEGACY
+ */
