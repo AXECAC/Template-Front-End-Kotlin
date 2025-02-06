@@ -11,9 +11,7 @@ import com.example.template.repository.Repository
 import com.example.template.viewModel.MainViewModel
 import com.example.template.viewModelFactory.MainViewModelFactory
 import com.example.template.functions.*
-import com.example.template.functions.data_manipulation.sessionHash
-import com.example.template.functions.data_manipulation.userrole
-import com.example.template.functions.data_manipulation.writehash
+import com.example.template.functions.data_manipulation.globalEmail
 import com.example.template.functions.navigation.*
 
 class SignUpPage : AppCompatActivity() {
@@ -65,12 +63,13 @@ class SignUpPage : AppCompatActivity() {
                 Toast.makeText(this, "ERROR: ".plus(response.code().toString()), Toast.LENGTH_SHORT).show()
             }  else {
                 Toast.makeText(this, "Success".plus(response.body()), Toast.LENGTH_SHORT).show()
-                sessionHash.value = response.body()
+                println("Success".plus(response.body()))
+                globalEmail.value = response.body()
                 //writehash(this, sessionHash.value!!)
             }
         })
         // should I put it before the response observer?
-        sessionHash.observe(this, Observer {
+        globalEmail.observe(this, Observer {
             //userrole.value = inrole.text.toString()
             navigationhub(this, "MAIN MENU")
             this.finish()

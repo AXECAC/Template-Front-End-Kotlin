@@ -18,6 +18,7 @@ class MainViewModel(private val repository: Repository): ViewModel() {
     val myCResponse: MutableLiveData<Response<CResponse>> = MutableLiveData()
     //val myErrorResponse: MutableLiveData<Response<ErrorResponse>> = MutableLiveData()
     val myStringResponse: MutableLiveData<Response<String>> = MutableLiveData()
+    val myUnitResponse: MutableLiveData<Response<Unit>> = MutableLiveData()
 
     /*
     fun getPosts() {
@@ -87,7 +88,7 @@ class MainViewModel(private val repository: Repository): ViewModel() {
     ) {
         viewModelScope.launch {
             val response = repository.login(email, password)
-            myStringResponse.value = response
+            myUnitResponse.value = response
         }
     }
     /*

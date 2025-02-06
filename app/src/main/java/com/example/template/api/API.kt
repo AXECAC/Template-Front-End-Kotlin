@@ -3,6 +3,7 @@ package com.example.template.api
 import com.example.template.model.*
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.POST
 
@@ -18,9 +19,9 @@ interface API {
     suspend fun getdevs(@Body hash: String) : Response<MutableList<Users>>
     LEGACY
      */
-    @POST("registration")
+    @POST("/api/Start/SomePost") // registration is not yet implemented: for testing purposes only.
     @Headers("Content-Type: application/json")
-    suspend fun register(@Body temp: Users) : Response<String> // back-end returns role + hash
+    suspend fun register(@Body temp: Users) : Response<String>
     /*
     @POST("role") // TODO: change to get request
     @Headers("Content-Type: application/json")
@@ -50,7 +51,7 @@ interface API {
     suspend fun delete(@Body temp: DevRegForm) : Response<String> // Password field here is used for a password hash
     LEGACY
      */
-    @POST("login")
+    @POST("/api/Start/SomeLogin")
     @Headers("Content-Type: application/json")
-    suspend fun login(@Body temp: LogInForm) : Response<String> // back-end returns role + hash
+    suspend fun login(@Body temp: LogInForm) : Response<Unit> // Back-End returns codes: 200, 404
 }

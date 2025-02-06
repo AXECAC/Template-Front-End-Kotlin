@@ -6,14 +6,14 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.template.functions.data_manipulation.*
-import com.example.template.functions.data_manipulation.sessionHash
+import com.example.template.functions.data_manipulation.globalEmail
 
 
 class DevMainMenu : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dev_main_menu)
-        Toast.makeText(this, sessionHash.value, Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, globalEmail.value, Toast.LENGTH_SHORT).show()
     }
     fun logout(view: View?) {
         logout(this)
