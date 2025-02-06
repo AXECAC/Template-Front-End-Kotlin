@@ -3,11 +3,11 @@ package com.example.template.model
 
 // My version
 data class Users (
-    val id: Int,
-    val email: String,
-    val password: String,
-    val firstname: String,
-    val secondname: String
+    val Id: Int,
+    val Email: String,
+    val Password: String,
+    val FirstName: String, // 'Name' starts with a capital letter just because, lol
+    val SecondName: String
 )
 
 /*

@@ -3,11 +3,9 @@ package com.example.template.model
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.template.R
-import com.example.template.functions.data_manipulation.deletionrequesteduser
 
 
 class UsersAdapter(private val dataSet: MutableList<Users>) :
@@ -19,8 +17,8 @@ class UsersAdapter(private val dataSet: MutableList<Users>) :
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val id: TextView = view.findViewById(R.id.id)
         val email: TextView = view.findViewById(R.id.email)
-        val firstname: TextView = view.findViewById(R.id.fullname)
-        val secondname: TextView = view.findViewById(R.id.role)
+        val firstname: TextView = view.findViewById(R.id.firstname)
+        val secondname: TextView = view.findViewById(R.id.secondname)
 
         init {
             // Define click listener for the ViewHolder's View
@@ -67,10 +65,10 @@ class UsersAdapter(private val dataSet: MutableList<Users>) :
         viewHolder.current.text = viewHolder.current.text.toString().plus(dataSet[position].current)
 
          */
-        viewHolder.id.text = dataSet[position].id.toString()
-        viewHolder.email.text = dataSet[position].email
-        viewHolder.firstname.text = dataSet[position].firstname
-        viewHolder.secondname.text = dataSet[position].secondname
+        viewHolder.id.text = viewHolder.id.text.toString().plus(dataSet[position].Id)
+        viewHolder.email.text = viewHolder.email.text.toString().plus(dataSet[position].Email)
+        viewHolder.firstname.text = viewHolder.firstname.text.toString().plus(dataSet[position].FirstName)
+        viewHolder.secondname.text = viewHolder.secondname.text.toString().plus(dataSet[position].SecondName)
         //viewHolder.delete = view.findViewById<Button>(R.id.delete)
         /*
         viewHolder.delete.setOnClickListener {
