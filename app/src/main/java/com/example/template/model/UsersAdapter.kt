@@ -19,13 +19,8 @@ class UsersAdapter(private val dataSet: MutableList<Users>) :
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val id: TextView = view.findViewById(R.id.id)
         val email: TextView = view.findViewById(R.id.email)
-        val fullname: TextView = view.findViewById(R.id.fullname)
-        val role: TextView = view.findViewById(R.id.role)
-        val organization_id: TextView = view.findViewById(R.id.organization_id)
-        val done: TextView = view.findViewById(R.id.done)
-        val score: TextView = view.findViewById(R.id.score)
-        val current: TextView = view.findViewById(R.id.current)
-        val delete: Button = view.findViewById<Button>(R.id.delete)
+        val firstname: TextView = view.findViewById(R.id.fullname)
+        val secondname: TextView = view.findViewById(R.id.role)
 
         init {
             // Define click listener for the ViewHolder's View
@@ -74,13 +69,10 @@ class UsersAdapter(private val dataSet: MutableList<Users>) :
          */
         viewHolder.id.text = dataSet[position].id.toString()
         viewHolder.email.text = dataSet[position].email
-        viewHolder.fullname.text = dataSet[position].fullname
-        viewHolder.role.text = dataSet[position].role
-        viewHolder.organization_id.text = dataSet[position].organization_id.toString()
-        viewHolder.done.text = dataSet[position].done.toString()
-        viewHolder.score.text = dataSet[position].score.toString()
-        viewHolder.current.text = dataSet[position].current
+        viewHolder.firstname.text = dataSet[position].firstname
+        viewHolder.secondname.text = dataSet[position].secondname
         //viewHolder.delete = view.findViewById<Button>(R.id.delete)
+        /*
         viewHolder.delete.setOnClickListener {
             deletionrequesteduser = Users(
                 id = dataSet[position].id,
@@ -93,22 +85,23 @@ class UsersAdapter(private val dataSet: MutableList<Users>) :
                 score = dataSet[position].score,
                 current = dataSet[position].current
             )
-             /*
-            viewHolder.viewModel.delete(Users(
-                id = dataSet[position].id,
-                email = dataSet[position].email,
-                password_hash = dataSet[position].password_hash,
-                fullname = dataSet[position].fullname,
-                role = dataSet[position].role,
-                organization_id = dataSet[position].organization_id,
-                done = dataSet[position].done,
-                score = dataSet[position].score,
-                current = dataSet[position].current
-            ))
-            */
+
+       viewHolder.viewModel.delete(Users(
+           id = dataSet[position].id,
+           email = dataSet[position].email,
+           password_hash = dataSet[position].password_hash,
+           fullname = dataSet[position].fullname,
+           role = dataSet[position].role,
+           organization_id = dataSet[position].organization_id,
+           done = dataSet[position].done,
+           score = dataSet[position].score,
+           current = dataSet[position].current
+       ))
 
             //Log.i("GlobalDataUpdate", "requesteduser changed successfully")
         }
+
+         */
     }
 
     // Return the size of your dataset (invoked by the layout manager)

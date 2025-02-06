@@ -51,7 +51,7 @@ class DevSignUp : AppCompatActivity() {
             Toast.makeText(this, "No internet connection", Toast.LENGTH_LONG).show()
             return
         }
-
+        /*
         viewModel.devregister(
             removespaces(inemail.text.toString()),
             removespaces(inpassword.text.toString()),
@@ -59,6 +59,8 @@ class DevSignUp : AppCompatActivity() {
             readhash(this),
             0
         )
+
+         */
         viewModel.myCResponse.observe(this, Observer{
                 response ->
             val result = response.body()?.message ?: "No response. Please try again."

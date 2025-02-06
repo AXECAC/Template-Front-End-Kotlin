@@ -8,10 +8,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.template.functions.data_manipulation.userhash
+import com.example.template.functions.data_manipulation.sessionHash
 import com.example.template.functions.data_manipulation.readhash
 import com.example.template.functions.data_manipulation.userrole
 import com.example.template.functions.navigation.navigationhub
+import com.example.template.functions.navigation.tosignuppage
 import com.example.template.repository.Repository
 import com.example.template.viewModel.MainViewModel
 import com.example.template.viewModelFactory.MainViewModelFactory
@@ -29,18 +30,19 @@ class MainActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
 
-        lateinit var intent: Intent// = Intent(this, SignUpPage::class.java)
+        //lateinit var intent: Intent// = Intent(this, SignUpPage::class.java)
         super.onCreate(savedInstanceState)
 
-        userrole.value = "   "
+        sessionHash.value = "   "
         // hash reading
         progresstext.setText(R.string.loading)
         try {
-            userhash.value = readhash(this) // TODO: format conf file to a json-like file
-            Toast.makeText(this, userhash.value, Toast.LENGTH_SHORT).show()
-            Log.i("HASH", userhash.value ?: "   ")
+            sessionHash.value = readhash(this) // TODO: format conf file to a json-like file
+            Toast.makeText(this, sessionHash.value, Toast.LENGTH_SHORT).show()
+            Log.i("HASH", sessionHash.value ?: "   ")
         } catch (e: FileNotFoundException) {
             Log.i("ERROR", "NO SUCH FILE")
+            tosignuppage(this)
         }
         /*
         viewModel.getRole()
@@ -58,10 +60,12 @@ class MainActivity : AppCompatActivity() {
 
          */
 
-        userrole.observe(this, Observer {
-            Toast.makeText(this, userrole.value, Toast.LENGTH_SHORT).show()
+        sessionHash.observe(this, Observer {
+            Toast.makeText(this, sessionHash.value, Toast.LENGTH_SHORT).show()
             progresstext.setText(R.string.changing_layout)
-            navigationhub(this, userrole.value!!)
+            //navigationhub(this, userrole.value!!)
+            if (sessionHash.value != "   ")
+                navigationhub(this, "MAIN MENU")
             this.finish()
         })
     }

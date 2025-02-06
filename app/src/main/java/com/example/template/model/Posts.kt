@@ -1,5 +1,5 @@
 package com.example.template.model
-
+/*
 data class Posts (
     val photolink: String,
     val address: String,
@@ -13,3 +13,5 @@ data class Posts (
     val needed: Int, // a necessary amount of people
     val approved: Boolean
 )
+LEGACY
+ */

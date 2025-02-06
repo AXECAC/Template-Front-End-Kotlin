@@ -2,7 +2,6 @@ package com.example.template.repository
 
 import com.example.template.api.RetrofitInstance
 import com.example.template.model.*
-import com.example.template.functions.data_manipulation.userhash
 //import com.example.trashhack.model.loggedin.LoggedInUser_instance
 import retrofit2.Response
 
@@ -12,13 +11,15 @@ class Repository {
         return RetrofitInstance.api.getposts()
     }
      */
+    /*
     suspend fun getDevs(): Response<MutableList<Users>> {
         return RetrofitInstance.api.getdevs(userhash.value ?: "")
     }
-
     suspend fun getRole(): Response<String> {
         return RetrofitInstance.api.getrole(userhash.value ?: "")
     }
+    LEGACY
+     */
 
     /*
     suspend fun pushPostUsers(
@@ -35,7 +36,9 @@ class Repository {
         var temp: Users = Users(id, email, passwordhash, fullname, role, organizationid, done, score, current)
         return RetrofitInstance.api.pushpost(temp)
     }
+    LEGACY
      */
+    /*
     suspend fun devregister(
         email: String,
         password: String,
@@ -53,22 +56,24 @@ class Repository {
         )
         return RetrofitInstance.api.devregister(temp)
     }
+    LEGACY
+     */
     suspend fun register(
         email: String,
         password: String,
-        fullname: String,
-        role: String,
-        organizationid: Int
+        firstname: String,
+        secondname: String
     ) : Response<String> {
-        val temp: RegistrationForm = RegistrationForm(
+        val temp: Users = Users(
+            0,
             email,
             password,
-            fullname,
-            role,
-            organizationid
+            firstname,
+            secondname
         )
         return RetrofitInstance.api.register(temp)
     }
+    /*
     suspend fun delete(
         email: String,
         password_hash: String,
@@ -86,6 +91,8 @@ class Repository {
         )
         return RetrofitInstance.api.delete(temp)
     }
+    LEGACY
+     */
 
     suspend fun login(
         email: String,

@@ -5,13 +5,9 @@ package com.example.template.model
 data class Users (
     val id: Int,
     val email: String,
-    val password_hash: String,
-    val fullname: String, // Surname + Name + Patronymic
-    val role: String,
-    val organization_id: Int,
-    val done: Int, // number of participations
-    val score: Int,
-    val current: String // What a user participates in right now
+    val password: String,
+    val firstname: String,
+    val secondname: String
 )
 
 /*
