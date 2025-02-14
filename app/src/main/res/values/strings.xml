@@ -18,7 +18,7 @@
     <string name="signin_hint">Already have an account?</string>
     <string name="action_sign_up">Sign up</string>
     <string name="action_sign_in">Sign in</string>
-    <string name="signup_failed">SignUp failed. Please try again.</string>
+    <string name="signup_failed">Sign Up failed. Please try again.</string>
 
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
@@ -28,6 +28,13 @@
     <string name="org_devs">"Developers</string>
     <string name="refresh">"Refresh</string>
     <string name="org_orgs">"Organizations</string>
+
+
+    <string name="createuser">Create User</string>
+    <string name="getuser">Get User</string>
+    <string name="getusers">Get Users</string>
+    <string name="changeuser">Change User</string>
+    <string name="deleteuser">"Delete User</string>
 
 
     <string name="logout">"Log out</string>

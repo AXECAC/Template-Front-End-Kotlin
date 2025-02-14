@@ -62,6 +62,7 @@ class LoginPage : AppCompatActivity() {
                 Log.i("ERROR", "HASH ERROR")
                 Toast.makeText(this, "ERROR: ".plus(msg), Toast.LENGTH_SHORT).show()
             } else if (response.code() == 200) {
+                Log.i("SUCCESS", response.body().toString())
                 Toast.makeText(this, "Success".plus(response.body()), Toast.LENGTH_SHORT).show()
                 globalEmail.value = removespaces(inemail.text.toString()) //response.body()
             }
@@ -103,7 +104,8 @@ class LoginPage : AppCompatActivity() {
         globalEmail.observe(this, Observer {
             //userrole.value = inrole.text.toString()
             response ->
-            navigationhub(this, "MAIN MENU")
+            navigationhub(this, "CRUD MENU")
+            this.finish()
             //this.finish()
         })
     }

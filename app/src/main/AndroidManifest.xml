@@ -16,6 +16,24 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".DeleteUser"
+            android:exported="false" />
+        <activity
+            android:name=".ChangeUser"
+            android:exported="false" />
+        <activity
+            android:name=".GetUsers"
+            android:exported="false" />
+        <activity
+            android:name=".GetUser"
+            android:exported="false" />
+        <activity
+            android:name=".CreateUser"
+            android:exported="false" />
+        <activity
+            android:name=".CRUDMenu"
+            android:exported="false" />
+        <activity
             android:name=".DevControlDev"
             android:exported="false" />
         <activity
