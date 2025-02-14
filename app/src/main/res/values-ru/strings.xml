@@ -31,4 +31,10 @@
     <string name="change">Редактировать</string>
     <string name="delete">Удалить</string>
     <string name="registerdev">Зарегестрировать нового разработчика</string>
+
+    <string name="createuser">Создать пользователя</string>
+    <string name="getuser">Получить пользователя</string>
+    <string name="getusers">Получить пользователей</string>
+    <string name="changeuser">Изменить пользователя</string>
+    <string name="deleteuser">"Удалить пользователя</string>
 </resources>

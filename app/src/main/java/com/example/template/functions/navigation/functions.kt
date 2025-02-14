@@ -5,6 +5,7 @@ import android.content.Intent
 import com.example.template.DevMainMenu
 import com.example.template.LoginPage
 import com.example.template.SignUpPage
+import com.example.template.CRUDMenu
 
 fun tologinpage(context: Context) {
     // setContentView(R.layout.activity_login_page)
@@ -24,10 +25,18 @@ fun todevmenupage(context: Context) {
     context.startActivity(intent)
     //this.finish()
 }
+fun tocrudmenupage(context: Context) {
+    // setContentView(R.layout.activity_sign_up_page)
+    val intent = Intent(context, CRUDMenu::class.java)
+    context.startActivity(intent)
+    //this.finish()
+}
+
 fun navigationhub(context: Context, role: String) {
     when (role) {
         "DEV" -> todevmenupage(context)
         "MAIN MENU" -> println("no such menu yet")
+        "CRUD MENU" -> tocrudmenupage(context)
         else -> tosignuppage(context)
     }
 }

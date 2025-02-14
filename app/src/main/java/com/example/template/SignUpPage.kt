@@ -71,12 +71,11 @@ class SignUpPage : AppCompatActivity() {
         // should I put it before the response observer?
         globalEmail.observe(this, Observer {
             //userrole.value = inrole.text.toString()
-            navigationhub(this, "MAIN MENU")
+            navigationhub(this, "CRUD MENU")
             this.finish()
         })
     }
     fun tologinpage(view: View?) {
-        // setContentView(R.layout.activity_login_page)
         tologinpage(this)
         this.finish()
     }
