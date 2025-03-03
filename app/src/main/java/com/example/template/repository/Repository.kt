@@ -1,6 +1,7 @@
 package com.example.template.repository
 
 import com.example.template.api.RetrofitInstance
+import com.example.template.functions.data_manipulation.globalOldEmail
 import com.example.template.model.*
 //import com.example.trashhack.model.loggedin.LoggedInUser_instance
 import retrofit2.Response
@@ -63,8 +64,8 @@ class Repository {
         password: String,
         firstname: String,
         secondname: String
-    ) : Response<String> {
-        val temp: Users = Users(
+    ) : Response<TokenResponseClass> {
+        val temp = Users(
             0,
             email,
             password,
@@ -73,6 +74,24 @@ class Repository {
         )
         return RetrofitInstance.api.register(temp)
     }
+    /*
+    suspend fun createSave(
+        email: String,
+        password: String,
+        firstname: String,
+        secondname: String
+    ) : Response<Unit> {
+        val temp: Users = Users(
+            0,
+            email,
+            password,
+            firstname,
+            secondname
+        )
+        return RetrofitInstance.api.createSave(temp, globalOldEmail.value.toString(), )
+    }
+
+     */
     /*
     suspend fun delete(
         email: String,

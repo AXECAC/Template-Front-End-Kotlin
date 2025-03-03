@@ -64,7 +64,7 @@ class LoginPage : AppCompatActivity() {
             } else if (response.code() == 200) {
                 Log.i("SUCCESS", response.body().toString())
                 Toast.makeText(this, "Success".plus(response.body()), Toast.LENGTH_SHORT).show()
-                globalEmail.value = removespaces(inemail.text.toString()) //response.body()
+                globalToken.value = removespaces(inemail.text.toString()) //response.body()
             }
             //writehash(this, sessionHash.value!!)
 
@@ -101,7 +101,7 @@ class LoginPage : AppCompatActivity() {
         })
         LEGACY
          */
-        globalEmail.observe(this, Observer {
+        globalToken.observe(this, Observer {
             //userrole.value = inrole.text.toString()
             response ->
             navigationhub(this, "CRUD MENU")
