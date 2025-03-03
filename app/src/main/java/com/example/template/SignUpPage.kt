@@ -61,20 +61,23 @@ class SignUpPage : AppCompatActivity() {
 
         viewModel.myTokenResponse.observe(this, Observer {
                 response ->
-            if (response.code() != 201) {
-                Toast.makeText(this, "ERROR: ".plus(response.code().toString()), Toast.LENGTH_SHORT).show()
-                if (response.body() == null) {
+            Toast.makeText(this, R.string.welcome, Toast.LENGTH_SHORT).show()
+            globalToken.value = response?.body()!!.data
+            authman.writeToken(globalToken.value.toString(), this)
+        })
+        viewModel.myErrorCodeResponse.observe(this, Observer {
+                response ->
+            if (response != 201) {
+                Toast.makeText(this, "ERROR: ".plus(response.toString()), Toast.LENGTH_SHORT).show()
+                if (response == null) {
                     Toast.makeText(this, "No Response", Toast.LENGTH_SHORT).show()
                 }
             }
-            Toast.makeText(this, "Welcome!", Toast.LENGTH_SHORT).show()
-            globalToken.value = response.body()!!.data
-            authman.writeToken(globalToken.value.toString(), this)
         })
         // should I put it before the response observer?
         globalToken.observe(this, Observer {
             // Toast.makeText(this, "Success".plus(globalToken.value), Toast.LENGTH_SHORT).show()
-            if (globalToken.value != "") { // TODO: temporary: will be changed to a response from the server
+            if (globalToken.value != "") {
                 navigationhub(this, "CRUD MENU")
                 this.finish()
             }

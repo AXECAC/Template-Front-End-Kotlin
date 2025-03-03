@@ -15,11 +15,15 @@ import com.example.template.repository.Repository
 import com.example.template.viewModel.MainViewModel
 import com.example.template.viewModelFactory.MainViewModelFactory
 import com.example.template.functions.navigation.tosignuppage
+import com.example.template.preferencesManager.AuthManager
+
 class LoginPage : AppCompatActivity() {
     private lateinit var viewModel: MainViewModel
     // 'in' prefix for 'input'
     lateinit var inemail: EditText
     lateinit var inpassword: EditText
+
+    val authman = AuthManager()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,27 +54,34 @@ class LoginPage : AppCompatActivity() {
             removespaces(inemail.text.toString()),
             removespaces(inpassword.text.toString())
         )
-        viewModel.myUnitResponse.observe(this, Observer {
-                response ->
-            if (response == null) {
-                Toast.makeText(this, "No Response", Toast.LENGTH_SHORT).show()
-            } else if (response.code() != 200) {
-                var msg = response.code().toString()
-                if (response.code() == 404) {
-                    msg = "No such user"
-                }
-                Log.i("ERROR", "HASH ERROR")
-                Toast.makeText(this, "ERROR: ".plus(msg), Toast.LENGTH_SHORT).show()
-            } else if (response.code() == 200) {
-                Log.i("SUCCESS", response.body().toString())
-                Toast.makeText(this, "Success".plus(response.body()), Toast.LENGTH_SHORT).show()
-                globalToken.value = removespaces(inemail.text.toString()) //response.body()
-            }
-            //writehash(this, sessionHash.value!!)
 
+        viewModel.myTokenResponse.observe(this, Observer {
+                response ->
+            Toast.makeText(this, R.string.welcome_back, Toast.LENGTH_SHORT).show()
+            globalToken.value = response?.body()!!.data
+            authman.writeToken(globalToken.value.toString(), this)
+        })
+        viewModel.myErrorCodeResponse.observe(this, Observer {
+                response ->
+            if (response == 401) {
+                Toast.makeText(this, "ERROR: invalid email or password", Toast.LENGTH_SHORT).show()
+            } else if (response != 200) {
+                Toast.makeText(this, "ERROR: ".plus(response.toString()), Toast.LENGTH_SHORT).show()
+                if (response == null) {
+                    Toast.makeText(this, "No Response", Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
+
+        // should I put it before the response observer?
+        globalToken.observe(this, Observer {
+            // Toast.makeText(this, "Success".plus(globalToken.value), Toast.LENGTH_SHORT).show()
+            if (globalToken.value != "") {
+                navigationhub(this, "CRUD MENU")
+                this.finish()
+            }
         })
         /*
-        // should I put it before the response observer?
         sessionHash.observe(this, Observer {
             Toast.makeText(this, "Asking for the role", Toast.LENGTH_SHORT).show()
             // viewModel.getRole()
@@ -101,13 +112,7 @@ class LoginPage : AppCompatActivity() {
         })
         LEGACY
          */
-        globalToken.observe(this, Observer {
-            //userrole.value = inrole.text.toString()
-            response ->
-            navigationhub(this, "CRUD MENU")
-            this.finish()
-            //this.finish()
-        })
+
     }
     fun tosignuppage(view: View?) {
         tosignuppage(this)
