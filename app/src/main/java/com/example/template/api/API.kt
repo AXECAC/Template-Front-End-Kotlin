@@ -31,7 +31,11 @@ interface API {
 
     @POST("/api/Auth/Registration")
     @Headers("Content-Type: application/json")
-    suspend fun register(@Body temp: Users) : Response<TokenResponseClass> // Back-End returns codes: 201 + token, 409, 500
+    suspend fun register(@Body temp: Users) : Response<TokenResponseClass?> // Back-End returns codes: 201 + token, 409, 500
+
+    @POST("/api/Auth/Login")
+    @Headers("Content-Type: application/json")
+    suspend fun login(@Body temp: LogInForm) : Response<TokenResponseClass?> // Back-End returns codes: 200 + token, 401, 500
     /*
     @POST("role") // TODO: change to get request
     @Headers("Content-Type: application/json")
@@ -60,7 +64,4 @@ interface API {
     suspend fun delete(@Body temp: DevRegForm) : Response<String> // Password field here is used for a password hash
     LEGACY
      */
-    @POST("/api/Start/SomeLogin")
-    @Headers("Content-Type: application/json")
-    suspend fun login(@Body temp: LogInForm) : Response<Unit> // Back-End returns codes: 200, 404
 }

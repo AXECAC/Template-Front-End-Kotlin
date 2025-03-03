@@ -64,7 +64,7 @@ class Repository {
         password: String,
         firstname: String,
         secondname: String
-    ) : Response<TokenResponseClass> {
+    ) : Response<TokenResponseClass?> {
         val temp = Users(
             0,
             email,
@@ -116,10 +116,9 @@ class Repository {
     suspend fun login(
         email: String,
         password: String
-    ) : Response<Unit>
+    ) : Response<TokenResponseClass?>
     {
-        //LoggedInUser_instance = LoggedInUser("", email, password)
-        val temp: LogInForm = LogInForm(
+        val temp = LogInForm(
             email,
             password
         )
