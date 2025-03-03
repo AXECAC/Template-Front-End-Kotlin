@@ -3,11 +3,20 @@ package com.example.template.functions.data_manipulation
 import android.content.Context
 import java.io.File
 import com.example.template.functions.navigation.tosignuppage
+import com.example.template.preferencesManager.AuthManager
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+
+
+
 
 // Functions to manipulate user data (configuration files, requests, etc.)
 
 fun logout(context: Context) {
-    writehash(context, "   ")
+    //writehash(context, "")
+    globalToken.value = ""
+    val authman = AuthManager()
+    authman.writeToken("", context)
     tosignuppage(context)
 }
 

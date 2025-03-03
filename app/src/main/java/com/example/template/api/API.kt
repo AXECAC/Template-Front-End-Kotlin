@@ -7,7 +7,6 @@ import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.POST
 
-
 interface API {
     /*
     @GET("posts/1")
@@ -19,14 +18,24 @@ interface API {
     suspend fun getdevs(@Body hash: String) : Response<MutableList<Users>>
     LEGACY
      */
+    /*
     @POST("/api/Start/SomePost") // registration is not yet implemented: for testing purposes only.
     @Headers("Content-Type: application/json")
     suspend fun register(@Body temp: Users) : Response<String>
+    */
+
+    @POST("/api/User/Save")
+    @Headers("Content-Type: application/json")
+    suspend fun createSave(@Body temp: Users, oldEmail: String, IsNew: Boolean) : Response<Unit>
+
+
+    @POST("/api/Auth/Registration")
+    @Headers("Content-Type: application/json")
+    suspend fun register(@Body temp: Users) : Response<TokenResponseClass> // Back-End returns codes: 201 + token, 409, 500
     /*
     @POST("role") // TODO: change to get request
     @Headers("Content-Type: application/json")
     suspend fun getrole(@Body hash: String) : Response<String>
-
      */
     /*
     @POST("user/{user}")

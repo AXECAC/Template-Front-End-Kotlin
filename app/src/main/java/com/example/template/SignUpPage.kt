@@ -11,7 +11,8 @@ import com.example.template.repository.Repository
 import com.example.template.viewModel.MainViewModel
 import com.example.template.viewModelFactory.MainViewModelFactory
 import com.example.template.functions.*
-import com.example.template.functions.data_manipulation.globalEmail
+import com.example.template.preferencesManager.AuthManager
+import com.example.template.functions.data_manipulation.globalToken
 import com.example.template.functions.navigation.*
 
 class SignUpPage : AppCompatActivity() {
@@ -22,6 +23,7 @@ class SignUpPage : AppCompatActivity() {
     lateinit var infirstname: EditText
     lateinit var insecondname: EditText
 
+    val authman = AuthManager()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,32 +50,36 @@ class SignUpPage : AppCompatActivity() {
             Toast.makeText(this, "No internet connection", Toast.LENGTH_LONG).show()
             return
         }
-        // server check
+
+        // server API request
         viewModel.register(
             removespaces(inemail.text.toString()),
             removespaces(inpassword.text.toString()),
             removespaces(infirstname.text.toString()),
             removespaces(insecondname.text.toString())
         )
-        viewModel.myStringResponse.observe(this, Observer {
+
+        viewModel.myTokenResponse.observe(this, Observer {
                 response ->
-            if (response.body() == null) {
-                Toast.makeText(this, "No Response", Toast.LENGTH_SHORT).show()
-            } else if (response.code() != 200) {
+            if (response.code() != 201) {
                 Toast.makeText(this, "ERROR: ".plus(response.code().toString()), Toast.LENGTH_SHORT).show()
-            }  else {
-                Toast.makeText(this, "Success".plus(response.body()), Toast.LENGTH_SHORT).show()
-                println("Success".plus(response.body()))
-                globalEmail.value = response.body()
-                //writehash(this, sessionHash.value!!)
+                if (response.body() == null) {
+                    Toast.makeText(this, "No Response", Toast.LENGTH_SHORT).show()
+                }
             }
+            Toast.makeText(this, "Welcome!", Toast.LENGTH_SHORT).show()
+            globalToken.value = response.body()!!.data
+            authman.writeToken(globalToken.value.toString(), this)
         })
         // should I put it before the response observer?
-        globalEmail.observe(this, Observer {
-            //userrole.value = inrole.text.toString()
-            navigationhub(this, "CRUD MENU")
-            this.finish()
+        globalToken.observe(this, Observer {
+            // Toast.makeText(this, "Success".plus(globalToken.value), Toast.LENGTH_SHORT).show()
+            if (globalToken.value != "") { // TODO: temporary: will be changed to a response from the server
+                navigationhub(this, "CRUD MENU")
+                this.finish()
+            }
         })
+
     }
     fun tologinpage(view: View?) {
         tologinpage(this)
