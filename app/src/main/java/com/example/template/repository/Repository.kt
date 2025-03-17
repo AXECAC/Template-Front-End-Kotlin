@@ -2,6 +2,7 @@ package com.example.template.repository
 
 import com.example.template.api.RetrofitInstance
 import com.example.template.functions.data_manipulation.globalOldEmail
+import com.example.template.functions.data_manipulation.globalToken
 import com.example.template.model.*
 //import com.example.trashhack.model.loggedin.LoggedInUser_instance
 import retrofit2.Response
@@ -124,4 +125,10 @@ class Repository {
         )
         return RetrofitInstance.api.login(temp)
     }
+    suspend fun check() : Response<Unit> {
+        return RetrofitInstance.api.check(
+            "Bearer ".plus(globalToken.value ?: "")
+        )
+    }
 }
+

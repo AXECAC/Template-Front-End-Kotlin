@@ -1,11 +1,13 @@
 package com.example.template.api
 
+import com.example.template.functions.data_manipulation.globalToken
 import com.example.template.model.*
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.POST
+import retrofit2.http.Header
 
 interface API {
     /*
@@ -36,6 +38,9 @@ interface API {
     @POST("/api/Auth/Login")
     @Headers("Content-Type: application/json")
     suspend fun login(@Body temp: LogInForm) : Response<TokenResponseClass?> // Back-End returns codes: 200 + token, 401, 500
+
+    @GET("/api/Auth/Check")
+    suspend fun check(@Header("Authorization") token: String) : Response<Unit>
     /*
     @POST("role") // TODO: change to get request
     @Headers("Content-Type: application/json")

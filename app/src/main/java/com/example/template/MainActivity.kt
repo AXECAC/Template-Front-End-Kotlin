@@ -67,11 +67,29 @@ class MainActivity : AppCompatActivity() {
         globalToken.observe(this, Observer {
             // Toast.makeText(this, globalToken.value, Toast.LENGTH_SHORT).show()
             progresstext.setText(R.string.changing_layout)
-            // TODO: make a request to the server for a token verification, and only after it is verified change the activity
-            if (globalToken.value != "") // TODO: temporary: will be changed to a response from the server
+            viewModel.check()
+        })
+        viewModel.myUnitResponse.observe(this, Observer {
+                response ->
+            //Toast.makeText(this, R.string.welcome_back, Toast.LENGTH_SHORT).show()
+            //globalToken.value = response?.body()!!.data
+            if (response.code() == 200) {
                 navigationhub(this, "CRUD MENU")
-            else
+                this.finish()
+            }
+        })
+        viewModel.myErrorCodeResponse.observe(this, Observer {
+                response ->
+            if (response == 401) {
+                Toast.makeText(this, "ERROR: invalid token", Toast.LENGTH_SHORT).show()
                 tosignuppage(this)
+            } else if (response != 200) {
+                Toast.makeText(this, "ERROR: ".plus(response.toString()), Toast.LENGTH_SHORT).show()
+                if (response == null) {
+                    Toast.makeText(this, "No Response", Toast.LENGTH_SHORT).show()
+                }
+                tosignuppage(this)
+            }
             this.finish()
         })
     }

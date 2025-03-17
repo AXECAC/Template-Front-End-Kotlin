@@ -19,6 +19,7 @@ class MainViewModel(private val repository: Repository): ViewModel() {
     //val myErrorResponse: MutableLiveData<Response<ErrorResponse>> = MutableLiveData()
     val myStringResponse: MutableLiveData<Response<String>> = MutableLiveData()
     val myErrorCodeResponse: MutableLiveData<Int> = MutableLiveData()
+    val myUnitResponse: MutableLiveData<Response<Unit>> = MutableLiveData()
     val myTokenResponse: MutableLiveData<Response<TokenResponseClass?>> = MutableLiveData()
 
     /*
@@ -94,6 +95,15 @@ class MainViewModel(private val repository: Repository): ViewModel() {
             val response = repository.login(email, password)
             if (response.body() != null)
                 myTokenResponse.value = response
+            else
+                myErrorCodeResponse.value = response.code()
+        }
+    }
+    fun check() {
+        viewModelScope.launch {
+            val response = repository.check()
+            if (response.code() == 200)
+                myUnitResponse.value = response
             else
                 myErrorCodeResponse.value = response.code()
         }
