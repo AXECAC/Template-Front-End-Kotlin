@@ -147,7 +147,19 @@ class Repository {
 			email
 		)
 	}
-	suspend fun create(temp: Users) : Response<String> {
+	suspend fun create(
+		email: String,
+		password: String,
+		firstname: String,
+		secondname: String
+	) : Response<String> {
+		val temp = Users(
+			0,
+			email,
+			password,
+			firstname,
+			secondname
+		)
 		return RetrofitInstance.api.create(
 			"Bearer ".plus(globalToken.value ?: ""),
 			temp

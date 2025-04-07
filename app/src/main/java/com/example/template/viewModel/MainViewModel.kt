@@ -143,9 +143,14 @@ class MainViewModel(private val repository: Repository): ViewModel() {
 				myErrorCodeResponse.value = response.code()
 		}
 	}
-	fun create(user: Users) {
+	fun create(
+		email: String,
+		password: String,
+		firstname: String,
+		secondname: String
+	) {
 		viewModelScope.launch {
-			val response = repository.create(user)
+			val response = repository.create(email, password, firstname, secondname)
 			if (response.code() == 201) {
 				myStringResponse.value = "SUCCESS" // response.body()
 			} else
