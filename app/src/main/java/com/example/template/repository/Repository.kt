@@ -130,5 +130,41 @@ class Repository {
             "Bearer ".plus(globalToken.value ?: "")
         )
     }
+	suspend fun getUsers() : Response<MutableList<Users>> {
+		return RetrofitInstance.api.getUsers(
+			"Bearer ".plus(globalToken.value ?: "")
+		)
+	}
+	suspend fun getUserById(id: Int) : Response<Users> {
+		return RetrofitInstance.api.getUserById(
+			"Bearer ".plus(globalToken.value ?: ""),
+			id
+		)
+	}
+	suspend fun getUserByEmail(email: String) : Response<Users> {
+		return RetrofitInstance.api.getUserByEmail(
+			"Bearer ".plus(globalToken.value ?: ""),
+			email
+		)
+	}
+	suspend fun create(temp: Users) : Response<String> {
+		return RetrofitInstance.api.create(
+			"Bearer ".plus(globalToken.value ?: ""),
+			temp
+		)
+	}
+	suspend fun edit(user: Users, email: String) : Response<String> {
+		return RetrofitInstance.api.edit(
+			"Bearer ".plus(globalToken.value ?: ""),
+			user,
+			email
+		)
+	}
+	suspend fun delete(id: Int) : Response<Unit> {
+		return RetrofitInstance.api.delete(
+			"Bearer ".plus(globalToken.value ?: ""),
+			id
+		)
+	}
 }
 

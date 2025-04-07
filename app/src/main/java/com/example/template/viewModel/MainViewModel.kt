@@ -13,15 +13,15 @@ import retrofit2.Response
 
 class MainViewModel(private val repository: Repository): ViewModel() {
     //val myResponse_posts: MutableLiveData<Posts> = MutableLiveData()
-    val myResponse_users: MutableList<Users> = mutableListOf<Users>()
+    val myResponseUsers: MutableList<Users> = mutableListOf<Users>()
     //lateinit var myResponse_users: Array<Users> //= mutableListOf<Users>()
     val myCResponse: MutableLiveData<Response<CResponse>> = MutableLiveData()
     //val myErrorResponse: MutableLiveData<Response<ErrorResponse>> = MutableLiveData()
-    val myStringResponse: MutableLiveData<Response<String>> = MutableLiveData()
+    val myStringResponse: MutableLiveData<String> = MutableLiveData()
     val myErrorCodeResponse: MutableLiveData<Int> = MutableLiveData()
     val myUnitResponse: MutableLiveData<Response<Unit>> = MutableLiveData()
     val myTokenResponse: MutableLiveData<Response<TokenResponseClass?>> = MutableLiveData()
-
+	val myUserResponse: MutableLiveData<Users> = MutableLiveData()
     /*
     fun getPosts() {
         viewModelScope.launch {
@@ -103,11 +103,77 @@ class MainViewModel(private val repository: Repository): ViewModel() {
         viewModelScope.launch {
             val response = repository.check()
             if (response.code() == 200)
-                myUnitResponse.value = response
+				myUnitResponse.value = response // not the body,
+												// because Unit is a Unit no matter what,
+												// I'm just not really sure it will
+												// work properly if I don't save the whole
+												// response class
             else
                 myErrorCodeResponse.value = response.code()
         }
     }
+
+	fun getUsers() {
+		viewModelScope.launch {
+			val response = repository.getUsers()
+			if (response.code() == 200) {
+				myResponseUsers.clear()
+				myResponseUsers.addAll(0, response.body() ?: mutableListOf<Users>())
+			} else if (response.code() == 204) {
+				myResponseUsers.clear()
+			} else
+				myErrorCodeResponse.value = response.code()
+		}
+	}
+	fun getUserById(id: Int) {
+		viewModelScope.launch {
+			val response = repository.getUserById(id)
+			if (response.code() == 200) {
+				myUserResponse.value = response.body()
+			} else
+				myErrorCodeResponse.value = response.code()
+		}
+	}
+	fun getUserByEmail(email: String) {
+		viewModelScope.launch {
+			val response = repository.getUserByEmail(email)
+			if (response.code() == 200) {
+				myUserResponse.value = response.body()
+			} else
+				myErrorCodeResponse.value = response.code()
+		}
+	}
+	fun create(user: Users) {
+		viewModelScope.launch {
+			val response = repository.create(user)
+			if (response.code() == 201) {
+				myStringResponse.value = "SUCCESS" // response.body()
+			} else
+				myErrorCodeResponse.value = response.code()
+		}
+	}
+	fun edit(user: Users, email: String) {
+		viewModelScope.launch {
+			val response = repository.edit(user, email)
+			if (response.code() == 201) {
+				myStringResponse.value = "SUCCESS" // response.body()
+			} else
+				myErrorCodeResponse.value = response.code()
+		}
+	}
+	fun delete(id: Int) {
+		viewModelScope.launch {
+			val response = repository.delete(id)
+			if (response.code() == 204)
+				myUnitResponse.value = response // not the body,
+												// because Unit is a Unit no matter what,
+												// I'm just not really sure it will
+												// work properly if I don't save the whole
+												// response class
+			else
+				myErrorCodeResponse.value = response.code()
+		}
+	}
     /*
     fun getRole() {
         viewModelScope.launch {

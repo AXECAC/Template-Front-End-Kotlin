@@ -4,6 +4,7 @@ import com.example.template.functions.data_manipulation.globalToken
 import com.example.template.model.*
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.POST
@@ -25,11 +26,11 @@ interface API {
     @Headers("Content-Type: application/json")
     suspend fun register(@Body temp: Users) : Response<String>
     */
-
+	/*
     @POST("/api/User/Save")
     @Headers("Content-Type: application/json")
     suspend fun createSave(@Body temp: Users, oldEmail: String, IsNew: Boolean) : Response<Unit>
-
+	 */
 
     @POST("/api/Auth/Registration")
     @Headers("Content-Type: application/json")
@@ -41,11 +42,30 @@ interface API {
 
     @GET("/api/Auth/Check")
     suspend fun check(@Header("Authorization") token: String) : Response<Unit>
-    /*
-    @POST("role") // TODO: change to get request
-    @Headers("Content-Type: application/json")
-    suspend fun getrole(@Body hash: String) : Response<String>
-     */
+
+	@GET("/api/User/GetUsers")
+	suspend fun getUsers(@Header("Authorization") token: String) : Response<MutableList<Users>>
+
+	@GET("/api/User/GetUserById")
+	suspend fun getUserById(@Header("Authorization") token: String, @Body id: Int) : Response<Users>
+
+	@GET("/api/User/GetUserByEmail")
+	suspend fun getUserByEmail(@Header("Authorization") token: String, @Body email: String) : Response<Users>
+
+	@POST("/api/User/Create")
+	suspend fun create(@Header("Authorization") token: String, @Body temp: Users) : Response<String>
+
+	@POST("/api/User/Edit")
+	suspend fun edit(@Header("Authorization") token: String, @Body user: Users, email: String) : Response<String>
+
+	@DELETE("/api/User/DeleteUser")
+	suspend fun delete(@Header("Authorization") token: String, @Body id: Int) : Response<Unit>
+
+	/*
+	@POST("role") // TODO: change to get request
+	@Headers("Content-Type: application/json")
+	suspend fun getrole(@Body hash: String) : Response<String>
+	 */
     /*
     @POST("user/{user}")
     @Headers("Content-Type: application/json")
