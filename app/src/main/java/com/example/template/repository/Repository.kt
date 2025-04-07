@@ -1,9 +1,11 @@
 package com.example.template.repository
 
+import android.util.Log
 import com.example.template.api.RetrofitInstance
 import com.example.template.functions.data_manipulation.globalOldEmail
 import com.example.template.functions.data_manipulation.globalToken
 import com.example.template.model.*
+import org.json.JSONObject
 //import com.example.trashhack.model.loggedin.LoggedInUser_instance
 import retrofit2.Response
 
@@ -152,7 +154,7 @@ class Repository {
 		password: String,
 		firstname: String,
 		secondname: String
-	) : Response<String> {
+	) : Response<JSONObject> {
 		val temp = Users(
 			0,
 			email,

@@ -61,8 +61,6 @@ class CreateUser : AppCompatActivity() {
 				Toast.makeText(this, "ERROR: ".plus(code.toString()), Toast.LENGTH_SHORT).show()
 				if (code == null)
 					Toast.makeText(this, "No Response", Toast.LENGTH_SHORT).show()
-				else
-					Toast.makeText(this, "CODE " + code.toString() + "\nUnauthorized", Toast.LENGTH_SHORT).show()
 			}
 		})
 		viewModel.myStringResponse.observe(this, Observer {

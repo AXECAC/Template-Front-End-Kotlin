@@ -1,6 +1,7 @@
 package com.example.template.viewModel
 
 import android.content.Context
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -152,7 +153,9 @@ class MainViewModel(private val repository: Repository): ViewModel() {
 		viewModelScope.launch {
 			val response = repository.create(email, password, firstname, secondname)
 			if (response.code() == 201) {
-				myStringResponse.value = "SUCCESS" // response.body()
+				//val message = response.body()?.get("message")
+				//Log.i("JSON", message.toString())
+				myStringResponse.value = "SUCCESS" //message.toString() // response.body()
 			} else
 				myErrorCodeResponse.value = response.code()
 		}

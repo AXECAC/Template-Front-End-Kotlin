@@ -2,6 +2,7 @@ package com.example.template.api
 
 import com.example.template.functions.data_manipulation.globalToken
 import com.example.template.model.*
+import org.json.JSONObject
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -53,7 +54,7 @@ interface API {
 	suspend fun getUserByEmail(@Header("Authorization") token: String, @Body email: String) : Response<Users>
 
 	@POST("/api/User/Create")
-	suspend fun create(@Header("Authorization") token: String, @Body temp: Users) : Response<String>
+	suspend fun create(@Header("Authorization") token: String, @Body temp: Users) : Response<JSONObject>
 
 	@POST("/api/User/Edit")
 	suspend fun edit(@Header("Authorization") token: String, @Body user: Users, email: String) : Response<String>

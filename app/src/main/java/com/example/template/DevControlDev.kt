@@ -32,7 +32,7 @@ class DevControlDev : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
         recyclerView = findViewById(R.id.recyclerView)
-        usersAdapter = UsersAdapter(viewModel.myResponse_users)
+        usersAdapter = UsersAdapter(viewModel.myResponseUsers)
         recyclerView.adapter = usersAdapter
 
         //usersAdapter.notifyDataSetChanged()
