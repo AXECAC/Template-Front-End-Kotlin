@@ -30,6 +30,7 @@
     <string name="action_settings">Настройки</string>
     <string name="change">Редактировать</string>
     <string name="delete">Удалить</string>
+	<string name="create">Создать</string>
     <string name="registerdev">Зарегестрировать нового разработчика</string>
 
     <string name="createuser">Создать пользователя</string>

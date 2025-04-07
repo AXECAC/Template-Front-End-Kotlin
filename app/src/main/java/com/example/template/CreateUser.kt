@@ -35,7 +35,7 @@ class CreateUser : AppCompatActivity() {
 		infirstname = findViewById(R.id.create_name)
 		insecondname = findViewById(R.id.create_surname)
     }
-	fun signup(view: View?) {
+	fun create(view: View?) {
 		if (removespaces(inemail.text.toString()) == "" ||
 			removespaces(inpassword.text.toString()) == "" ||
 			removespaces(infirstname.text.toString()) == "" ||
