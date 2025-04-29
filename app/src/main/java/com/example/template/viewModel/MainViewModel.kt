@@ -13,11 +13,8 @@ import retrofit2.HttpException
 import retrofit2.Response
 
 class MainViewModel(private val repository: Repository): ViewModel() {
-    //val myResponse_posts: MutableLiveData<Posts> = MutableLiveData()
     val myResponseUsers: MutableList<Users> = mutableListOf<Users>()
-    //lateinit var myResponse_users: Array<Users> //= mutableListOf<Users>()
     val myCResponse: MutableLiveData<Response<CResponse>> = MutableLiveData()
-    //val myErrorResponse: MutableLiveData<Response<ErrorResponse>> = MutableLiveData()
     val myStringResponse: MutableLiveData<String> = MutableLiveData()
     val myErrorCodeResponse: MutableLiveData<Int> = MutableLiveData()
     val myUnitResponse: MutableLiveData<Response<Unit>> = MutableLiveData()
