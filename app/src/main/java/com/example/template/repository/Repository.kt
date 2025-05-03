@@ -2,7 +2,6 @@ package com.example.template.repository
 
 import android.util.Log
 import com.example.template.api.RetrofitInstance
-import com.example.template.functions.data_manipulation.globalOldEmail
 import com.example.template.functions.data_manipulation.globalToken
 import com.example.template.model.*
 import org.json.JSONObject
@@ -68,7 +67,7 @@ class Repository {
         firstname: String,
         secondname: String
     ) : Response<TokenResponseClass?> {
-        val temp = Users(
+        val temp = User(
             0,
             email,
             password,
@@ -132,18 +131,19 @@ class Repository {
             "Bearer ".plus(globalToken.value ?: "")
         )
     }
-	suspend fun getUsers() : Response<MutableList<Users>> {
+	suspend fun getUsers() : Response<MutableList<User>> {
 		return RetrofitInstance.api.getUsers(
 			"Bearer ".plus(globalToken.value ?: "")
 		)
 	}
-	suspend fun getUserById(id: Int) : Response<Users> {
+	suspend fun getUserById(id: Int) : Response<User> {
 		return RetrofitInstance.api.getUserById(
 			"Bearer ".plus(globalToken.value ?: ""),
 			id
 		)
 	}
-	suspend fun getUserByEmail(email: String) : Response<Users> {
+	suspend fun getUserByEmail(email: String) : Response<User> {
+		Log.i("getUserByEmail", email)
 		return RetrofitInstance.api.getUserByEmail(
 			"Bearer ".plus(globalToken.value ?: ""),
 			email
@@ -155,7 +155,7 @@ class Repository {
 		firstname: String,
 		secondname: String
 	) : Response<JSONObject> {
-		val temp = Users(
+		val temp = User(
 			0,
 			email,
 			password,
@@ -167,7 +167,7 @@ class Repository {
 			temp
 		)
 	}
-	suspend fun edit(user: Users, email: String) : Response<String> {
+	suspend fun edit(user: User, email: String) : Response<String> {
 		return RetrofitInstance.api.edit(
 			"Bearer ".plus(globalToken.value ?: ""),
 			user,

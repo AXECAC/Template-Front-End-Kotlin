@@ -12,6 +12,7 @@ import kotlinx.coroutines.runBlocking
 
 class AuthManager {
     val TOKEN_KEY = stringPreferencesKey("jwt_token")
+    val EMAIL_KEY = stringPreferencesKey("email")
     fun writeToken(token: String, context: Context) {
         runBlocking(Dispatchers.IO) { // what a mess...
             context.dataStore.edit { settings ->
@@ -26,6 +27,26 @@ class AuthManager {
             .map { preferences ->
                 // No type safety.
                 preferences[TOKEN_KEY] ?: ""
+            }
+        runBlocking(Dispatchers.IO) {
+            retString = retValue.first()
+        }
+        return retString // TODO: check this one
+    }
+
+    fun writeEmail(email: String, context: Context) {
+        runBlocking(Dispatchers.IO) { // what a mess...
+            context.dataStore.edit { settings ->
+                settings[EMAIL_KEY] = email
+            }
+        }
+    }
+    fun readEmail(context: Context): String {
+        var retString: String
+        val retValue: Flow<String> = context.dataStore.data
+            .map { preferences ->
+                // No type safety.
+                preferences[EMAIL_KEY] ?: ""
             }
         runBlocking(Dispatchers.IO) {
             retString = retValue.first()

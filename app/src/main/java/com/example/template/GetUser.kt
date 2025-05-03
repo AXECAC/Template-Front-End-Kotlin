@@ -1,13 +1,15 @@
 package com.example.template
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.EditText
+import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SwitchCompat
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.template.functions.checkForInternet
 import com.example.template.functions.removespaces
 import com.example.template.repository.Repository
@@ -22,13 +24,17 @@ class GetUser : AppCompatActivity() {
 	lateinit var inid: EditText
 
 	lateinit var outputText: TextView
-	lateinit var idtoemailSwitch: SwitchCompat
+	lateinit var idtoemailSwitch: Switch
     override fun onCreate(savedInstanceState: Bundle?) {
-		val repository = Repository()
-		val viewModelFactory = MainViewModelFactory(repository)
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_get_user)
+
+
+		val repository = Repository()
+		val viewModelFactory = MainViewModelFactory(repository)
+
+		viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
 
 		inemail = findViewById(R.id.findByEmailText)
 		inid = findViewById(R.id.findByIdText)
@@ -36,22 +42,26 @@ class GetUser : AppCompatActivity() {
 		outputText = findViewById(R.id.GetUserOutputText)
 		idtoemailSwitch = findViewById(R.id.idtoemailSwitch)
     }
+
 	fun get(view: View?) {
 		if (removespaces(inemail.text.toString()) == "" &&
 			removespaces(inid.text.toString()) == "") {
-			Toast.makeText(this, "You have an empty fields", Toast.LENGTH_SHORT).show()
+			Toast.makeText(this, "You have an empty field", Toast.LENGTH_SHORT).show()
 			return
 		}
 		if (checkForInternet(this).not()) {
 			Toast.makeText(this, "No internet connection", Toast.LENGTH_LONG).show()
 			return
 		}
+		Log.i("EMAIL", inemail.text.toString())
 
-		if (idtoemailSwitch.isActivated())
+		if (idtoemailSwitch.isChecked) {
+			Log.i("request", inemail.text.toString())
 			viewModel.getUserByEmail(inemail.text.toString())
-		else
+		} else {
+			Log.i("request", inid.text.toString())
 			viewModel.getUserById(inid.text.toString().toInt())
-
+		}
 		viewModel.myErrorCodeResponse.observe(this, Observer {
 				code ->
 			if (code != 200) {
@@ -64,5 +74,7 @@ class GetUser : AppCompatActivity() {
 				value ->
 			outputText.text = value.toString()
 		})
+
 	}
+
 }

@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.template.R
 
 
-class UsersAdapter(private val dataSet: MutableList<Users>) :
+class UsersAdapter(private val dataSet: MutableList<User>) :
     RecyclerView.Adapter<UsersAdapter.ViewHolder>() {
     /**
      * Provide a reference to the type of views that you are using

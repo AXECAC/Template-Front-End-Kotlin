@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.template.functions.data_manipulation.globalEmail
 import com.example.template.preferencesManager.AuthManager
 import com.example.template.functions.data_manipulation.globalToken
 import com.example.template.functions.navigation.navigationhub
@@ -28,7 +29,6 @@ class MainActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
 
-        //lateinit var intent: Intent// = Intent(this, SignUpPage::class.java)
         super.onCreate(savedInstanceState)
 
         globalToken.value = ""
@@ -37,43 +37,34 @@ class MainActivity : AppCompatActivity() {
         val authman = AuthManager()
         try {
             globalToken.value = authman.readToken(this)
+            globalEmail.value = authman.readEmail(this)
             Log.i("TOKEN: ", globalToken.value ?: " ")
         } catch (e: Exception) {
             authman.writeToken("", this)
+            authman.writeEmail("", this)
             // The user has opened the app for the first time creating the field
             globalToken.value = authman.readToken(this)
+            globalEmail.value = authman.readEmail(this)
         }
-
-
-
-
 
         /*
         viewModel.getRole()
-        viewModel.myStringResponse.observe(this, Observer {
+        // observe the errorCode response
+        ...
+        // if no errors observe the role response
+        viewModel.myXXXResponse.observe(this, Observer {
             response ->
-            if (response.code() != 200) {
-                Log.i("ERROR", "ROLE ERROR")
-                intent = Intent(this, SignUpPage::class.java)
-                startActivity(intent)
-                this.finish()
-            } else {this
-                userrole.value = response.body()
-            }
+            ...
         })
-
          */
 
         globalToken.observe(this, Observer {
-            // Toast.makeText(this, globalToken.value, Toast.LENGTH_SHORT).show()
             progresstext.setText(R.string.changing_layout)
             viewModel.check()
         })
         viewModel.myUnitResponse.observe(this, Observer {
                 response ->
-            //Toast.makeText(this, R.string.welcome_back, Toast.LENGTH_SHORT).show()
-            //globalToken.value = response?.body()!!.data
-            if (response.code() == 200) {
+            if (response.code() == 200 && response.body() != null) {
                 navigationhub(this, "CRUD MENU")
                 this.finish()
             }

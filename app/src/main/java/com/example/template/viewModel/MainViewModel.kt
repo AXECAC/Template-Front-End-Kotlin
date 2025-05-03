@@ -1,25 +1,23 @@
 package com.example.template.viewModel
 
-import android.content.Context
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.template.functions.data_manipulation.globalEmail
 import com.example.template.model.*
 import com.example.template.repository.Repository
 import kotlinx.coroutines.launch
-import retrofit2.HttpException
 import retrofit2.Response
 
 class MainViewModel(private val repository: Repository): ViewModel() {
-    val myResponseUsers: MutableList<Users> = mutableListOf<Users>()
+    val myResponseUsers: MutableList<User> = mutableListOf<User>()
     val myCResponse: MutableLiveData<Response<CResponse>> = MutableLiveData()
     val myStringResponse: MutableLiveData<String> = MutableLiveData()
     val myErrorCodeResponse: MutableLiveData<Int> = MutableLiveData()
     val myUnitResponse: MutableLiveData<Response<Unit>> = MutableLiveData()
     val myTokenResponse: MutableLiveData<Response<TokenResponseClass?>> = MutableLiveData()
-	val myUserResponse: MutableLiveData<Users> = MutableLiveData()
+	val myUserResponse: MutableLiveData<User> = MutableLiveData()
     /*
     fun getPosts() {
         viewModelScope.launch {
@@ -116,7 +114,7 @@ class MainViewModel(private val repository: Repository): ViewModel() {
 			val response = repository.getUsers()
 			if (response.code() == 200) {
 				myResponseUsers.clear()
-				myResponseUsers.addAll(0, response.body() ?: mutableListOf<Users>())
+				myResponseUsers.addAll(0, response.body() ?: mutableListOf<User>())
 			} else if (response.code() == 204) {
 				myResponseUsers.clear()
 			} else
@@ -135,6 +133,7 @@ class MainViewModel(private val repository: Repository): ViewModel() {
 	fun getUserByEmail(email: String) {
 		viewModelScope.launch {
 			val response = repository.getUserByEmail(email)
+			Log.i("getUserByEmail", email)
 			if (response.code() == 200) {
 				myUserResponse.value = response.body()
 			} else
@@ -150,14 +149,13 @@ class MainViewModel(private val repository: Repository): ViewModel() {
 		viewModelScope.launch {
 			val response = repository.create(email, password, firstname, secondname)
 			if (response.code() == 201) {
-				//val message = response.body()?.get("message")
-				//Log.i("JSON", message.toString())
-				myStringResponse.value = "SUCCESS" //message.toString() // response.body()
+				myStringResponse.value = "SUCCESS"
 			} else
 				myErrorCodeResponse.value = response.code()
 		}
 	}
-	fun edit(user: Users, email: String) {
+	fun edit(user: User) {
+		val email = globalEmail.value ?: "";
 		viewModelScope.launch {
 			val response = repository.edit(user, email)
 			if (response.code() == 201) {
@@ -174,7 +172,7 @@ class MainViewModel(private val repository: Repository): ViewModel() {
 												// because Unit is a Unit no matter what,
 												// I'm just not really sure it will
 												// work properly if I don't save the whole
-												// response class
+												// response instance
 			else
 				myErrorCodeResponse.value = response.code()
 		}

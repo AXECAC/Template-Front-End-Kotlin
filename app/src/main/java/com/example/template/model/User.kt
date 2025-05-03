@@ -2,7 +2,7 @@ package com.example.template.model
 
 
 // My version
-data class Users (
+data class User (
     val Id: Int,
     val Email: String,
     val Password: String,

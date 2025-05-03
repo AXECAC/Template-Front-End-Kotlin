@@ -11,6 +11,7 @@ import com.example.template.repository.Repository
 import com.example.template.viewModel.MainViewModel
 import com.example.template.viewModelFactory.MainViewModelFactory
 import com.example.template.functions.*
+import com.example.template.functions.data_manipulation.globalEmail
 import com.example.template.preferencesManager.AuthManager
 import com.example.template.functions.data_manipulation.globalToken
 import com.example.template.functions.navigation.*
@@ -51,6 +52,10 @@ class SignUpPage : AppCompatActivity() {
             return
         }
 
+        val authman = AuthManager()
+        authman.writeEmail(inemail.text.toString(), this)
+        globalEmail.value = inemail.text.toString()
+
         // server API request
         viewModel.register(
             removespaces(inemail.text.toString()),
@@ -64,6 +69,12 @@ class SignUpPage : AppCompatActivity() {
             Toast.makeText(this, R.string.welcome, Toast.LENGTH_SHORT).show()
             globalToken.value = response?.body()!!.data
             authman.writeToken(globalToken.value.toString(), this)
+
+            authman.writeToken(globalToken.value.toString(), this)
+            if (response.body() != null) {
+                navigationhub(this, "CRUD MENU")
+                this.finish()
+            }
         })
         viewModel.myErrorCodeResponse.observe(this, Observer {
                 response ->
@@ -74,6 +85,7 @@ class SignUpPage : AppCompatActivity() {
                 }
             }
         })
+        /*
         // should I put it before the response observer?
         globalToken.observe(this, Observer {
             // Toast.makeText(this, "Success".plus(globalToken.value), Toast.LENGTH_SHORT).show()
@@ -82,6 +94,7 @@ class SignUpPage : AppCompatActivity() {
                 this.finish()
             }
         })
+        */
 
     }
     fun tologinpage(view: View?) {

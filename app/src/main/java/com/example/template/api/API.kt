@@ -1,6 +1,5 @@
 package com.example.template.api
 
-import com.example.template.functions.data_manipulation.globalToken
 import com.example.template.model.*
 import org.json.JSONObject
 import retrofit2.Response
@@ -10,6 +9,7 @@ import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.POST
 import retrofit2.http.Header
+import retrofit2.http.Query
 
 interface API {
     /*
@@ -35,7 +35,7 @@ interface API {
 
     @POST("/api/Auth/Registration")
     @Headers("Content-Type: application/json")
-    suspend fun register(@Body temp: Users) : Response<TokenResponseClass?> // Back-End returns codes: 201 + token, 409, 500
+    suspend fun register(@Body temp: User) : Response<TokenResponseClass?> // Back-End returns codes: 201 + token, 409, 500
 
     @POST("/api/Auth/Login")
     @Headers("Content-Type: application/json")
@@ -45,19 +45,19 @@ interface API {
     suspend fun check(@Header("Authorization") token: String) : Response<Unit>
 
 	@GET("/api/User/GetUsers")
-	suspend fun getUsers(@Header("Authorization") token: String) : Response<MutableList<Users>>
+	suspend fun getUsers(@Header("Authorization") token: String) : Response<MutableList<User>>
 
 	@GET("/api/User/GetUserById")
-	suspend fun getUserById(@Header("Authorization") token: String, @Body id: Int) : Response<Users>
+	suspend fun getUserById(@Header("Authorization") token: String, @Query("id") id: Int) : Response<User>
 
 	@GET("/api/User/GetUserByEmail")
-	suspend fun getUserByEmail(@Header("Authorization") token: String, @Body email: String) : Response<Users>
+	suspend fun getUserByEmail(@Header("Authorization") token: String, @Query("email") email: String) : Response<User>
 
 	@POST("/api/User/Create")
-	suspend fun create(@Header("Authorization") token: String, @Body temp: Users) : Response<JSONObject>
+	suspend fun create(@Header("Authorization") token: String, @Body temp: User) : Response<JSONObject>
 
 	@POST("/api/User/Edit")
-	suspend fun edit(@Header("Authorization") token: String, @Body user: Users, email: String) : Response<String>
+	suspend fun edit(@Header("Authorization") token: String, @Body user: User, email: String) : Response<String>
 
 	@DELETE("/api/User/DeleteUser")
 	suspend fun delete(@Header("Authorization") token: String, @Body id: Int) : Response<Unit>

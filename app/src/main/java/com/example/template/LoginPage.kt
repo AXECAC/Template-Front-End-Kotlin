@@ -49,6 +49,10 @@ class LoginPage : AppCompatActivity() {
             return
         }
 
+        val authman = AuthManager()
+        authman.writeEmail(inemail.text.toString(), this)
+        globalEmail.value = inemail.text.toString()
+
         // server check
         viewModel.login(
             removespaces(inemail.text.toString()),
@@ -60,6 +64,10 @@ class LoginPage : AppCompatActivity() {
             Toast.makeText(this, R.string.welcome_back, Toast.LENGTH_SHORT).show()
             globalToken.value = response?.body()!!.data
             authman.writeToken(globalToken.value.toString(), this)
+            if (response.body() != null) {
+                navigationhub(this, "CRUD MENU")
+                this.finish()
+            }
         })
         viewModel.myErrorCodeResponse.observe(this, Observer {
                 response ->
@@ -73,6 +81,7 @@ class LoginPage : AppCompatActivity() {
             }
         })
 
+        /*
         // should I put it before the response observer?
         globalToken.observe(this, Observer {
             // Toast.makeText(this, "Success".plus(globalToken.value), Toast.LENGTH_SHORT).show()
@@ -81,6 +90,7 @@ class LoginPage : AppCompatActivity() {
                 this.finish()
             }
         })
+         */
         /*
         sessionHash.observe(this, Observer {
             Toast.makeText(this, "Asking for the role", Toast.LENGTH_SHORT).show()
