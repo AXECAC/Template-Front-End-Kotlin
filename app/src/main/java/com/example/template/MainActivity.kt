@@ -62,9 +62,12 @@ class MainActivity : AppCompatActivity() {
             progresstext.setText(R.string.changing_layout)
             viewModel.check()
         })
+        var think = false;
+
         viewModel.myUnitResponse.observe(this, Observer {
                 response ->
-            if (response.code() == 200 && response.body() != null) {
+            if (response.code() == 200 && response.body() != null && !think) {
+                think = true;
                 navigationhub(this, "CRUD MENU")
                 this.finish()
             }

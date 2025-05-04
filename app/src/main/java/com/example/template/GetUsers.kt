@@ -3,14 +3,15 @@ package com.example.template
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.template.model.User
 import com.example.template.model.UsersAdapter
 import com.example.template.repository.Repository
 import com.example.template.viewModel.MainViewModel
 import com.example.template.viewModelFactory.MainViewModelFactory
-import okhttp3.internal.notify
 
 class GetUsers : AppCompatActivity() {
     private lateinit var viewModel: MainViewModel
@@ -30,13 +31,18 @@ class GetUsers : AppCompatActivity() {
         recyclerView.adapter = usersAdapter
     }
     fun refresh(view: View?) {
+
+        viewModel.myResponseUsers.clear()
         viewModel.getUsers()
-        usersAdapter.notify()
-        //recyclerView.addOnItemTouchListener()
-        recyclerView.Recycler().clear()
-        recyclerView.swapAdapter(UsersAdapter(viewModel.myResponseUsers), true)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        //recyclerView.layoutManager = GridLayoutManager(this, 1)
-        //
+        recyclerView.adapter?.notifyDataSetChanged()
+
+        viewModel.myStringResponse.observe(this, Observer {
+            response ->
+            if (response == "GOTUSERS") {
+                viewModel.myStringResponse.value = ""
+                recyclerView.swapAdapter(UsersAdapter(viewModel.myResponseUsers), true)
+                recyclerView.layoutManager = LinearLayoutManager(this)
+            }
+        })
     }
 }

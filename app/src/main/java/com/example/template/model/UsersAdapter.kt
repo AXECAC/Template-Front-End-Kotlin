@@ -65,10 +65,10 @@ class UsersAdapter(private val dataSet: MutableList<User>) :
         viewHolder.current.text = viewHolder.current.text.toString().plus(dataSet[position].current)
 
          */
-        viewHolder.id.text = viewHolder.id.text.toString().plus(dataSet[position].Id)
-        viewHolder.email.text = viewHolder.email.text.toString().plus(dataSet[position].Email)
-        viewHolder.firstname.text = viewHolder.firstname.text.toString().plus(dataSet[position].FirstName)
-        viewHolder.secondname.text = viewHolder.secondname.text.toString().plus(dataSet[position].SecondName)
+        viewHolder.id.text = viewHolder.id.text.toString().plus(dataSet[position].id)
+        viewHolder.email.text = viewHolder.email.text.toString().plus(dataSet[position].email)
+        viewHolder.firstname.text = viewHolder.firstname.text.toString().plus(dataSet[position].firstName)
+        viewHolder.secondname.text = viewHolder.secondname.text.toString().plus(dataSet[position].secondName)
         //viewHolder.delete = view.findViewById<Button>(R.id.delete)
         /*
         viewHolder.delete.setOnClickListener {

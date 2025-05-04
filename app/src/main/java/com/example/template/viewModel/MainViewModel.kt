@@ -8,12 +8,14 @@ import com.example.template.functions.data_manipulation.globalEmail
 import com.example.template.model.*
 import com.example.template.repository.Repository
 import kotlinx.coroutines.launch
+import org.json.JSONObject
 import retrofit2.Response
 
 class MainViewModel(private val repository: Repository): ViewModel() {
     val myResponseUsers: MutableList<User> = mutableListOf<User>()
     val myCResponse: MutableLiveData<Response<CResponse>> = MutableLiveData()
     val myStringResponse: MutableLiveData<String> = MutableLiveData()
+    val myJSONResponse: MutableLiveData<JSONObject> = MutableLiveData()
     val myErrorCodeResponse: MutableLiveData<Int> = MutableLiveData()
     val myUnitResponse: MutableLiveData<Response<Unit>> = MutableLiveData()
     val myTokenResponse: MutableLiveData<Response<TokenResponseClass?>> = MutableLiveData()
@@ -115,6 +117,7 @@ class MainViewModel(private val repository: Repository): ViewModel() {
 			if (response.code() == 200) {
 				myResponseUsers.clear()
 				myResponseUsers.addAll(0, response.body() ?: mutableListOf<User>())
+				myStringResponse.value = "GOTUSERS"
 			} else if (response.code() == 204) {
 				myResponseUsers.clear()
 			} else
@@ -136,6 +139,7 @@ class MainViewModel(private val repository: Repository): ViewModel() {
 			Log.i("getUserByEmail", email)
 			if (response.code() == 200) {
 				myUserResponse.value = response.body()
+				// myErrorCodeResponse.value = 200
 			} else
 				myErrorCodeResponse.value = response.code()
 		}
