@@ -63,7 +63,7 @@ class CreateUser : AppCompatActivity() {
 					Toast.makeText(this, "No Response", Toast.LENGTH_SHORT).show()
 			}
 		})
-		viewModel.myStringResponse.observe(this, Observer {
+		viewModel.myString.observe(this, Observer {
 				value ->
 			if (value == "SUCCESS")
 				Toast.makeText(this, "The user has been successfully created", Toast.LENGTH_SHORT).show()

@@ -167,7 +167,7 @@ class Repository {
 			temp
 		)
 	}
-	suspend fun edit(user: User, email: String) : Response<String> {
+	suspend fun edit(user: User, email: String) : Response<CResponse> {
 		return RetrofitInstance.api.edit(
 			"Bearer ".plus(globalToken.value ?: ""),
 			user,

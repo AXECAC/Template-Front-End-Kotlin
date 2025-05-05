@@ -5,6 +5,8 @@ import org.json.JSONObject
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
+import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.POST
@@ -56,8 +58,9 @@ interface API {
 	@POST("/api/User/Create")
 	suspend fun create(@Header("Authorization") token: String, @Body temp: User) : Response<JSONObject>
 
+
 	@POST("/api/User/Edit")
-	suspend fun edit(@Header("Authorization") token: String, @Body user: User, email: String) : Response<String>
+	suspend fun edit(@Header("Authorization") token: String, @Body user: User, @Query("oldEmail") email: String) : Response<CResponse>
 
 	@DELETE("/api/User/DeleteUser")
 	suspend fun delete(@Header("Authorization") token: String, @Body id: Int) : Response<Unit>

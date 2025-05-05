@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.template.functions.data_manipulation.globalEmail
 import com.example.template.model.*
 import com.example.template.repository.Repository
 import kotlinx.coroutines.launch
@@ -14,7 +13,8 @@ import retrofit2.Response
 class MainViewModel(private val repository: Repository): ViewModel() {
     val myResponseUsers: MutableList<User> = mutableListOf<User>()
     val myCResponse: MutableLiveData<Response<CResponse>> = MutableLiveData()
-    val myStringResponse: MutableLiveData<String> = MutableLiveData()
+    val myString: MutableLiveData<String> = MutableLiveData()
+    val myStringResponse: MutableLiveData<Response<String>> = MutableLiveData()
     val myJSONResponse: MutableLiveData<JSONObject> = MutableLiveData()
     val myErrorCodeResponse: MutableLiveData<Int> = MutableLiveData()
     val myUnitResponse: MutableLiveData<Response<Unit>> = MutableLiveData()
@@ -117,7 +117,7 @@ class MainViewModel(private val repository: Repository): ViewModel() {
 			if (response.code() == 200) {
 				myResponseUsers.clear()
 				myResponseUsers.addAll(0, response.body() ?: mutableListOf<User>())
-				myStringResponse.value = "GOTUSERS"
+				myString.value = "GOTUSERS"
 			} else if (response.code() == 204) {
 				myResponseUsers.clear()
 			} else
@@ -153,17 +153,16 @@ class MainViewModel(private val repository: Repository): ViewModel() {
 		viewModelScope.launch {
 			val response = repository.create(email, password, firstname, secondname)
 			if (response.code() == 201) {
-				myStringResponse.value = "SUCCESS"
+				myString.value = "SUCCESS"
 			} else
 				myErrorCodeResponse.value = response.code()
 		}
 	}
-	fun edit(user: User) {
-		val email = globalEmail.value ?: "";
+	fun edit(user: User, oldEmail: String) {
 		viewModelScope.launch {
-			val response = repository.edit(user, email)
+			val response = repository.edit(user, oldEmail)
 			if (response.code() == 201) {
-				myStringResponse.value = "SUCCESS" // response.body()
+				myString.value = "SUCCESS" // response.body()
 			} else
 				myErrorCodeResponse.value = response.code()
 		}
