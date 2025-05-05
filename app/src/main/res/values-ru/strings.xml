@@ -37,5 +37,6 @@
     <string name="getuser">Получить пользователя</string>
     <string name="getusers">Получить пользователей</string>
     <string name="changeuser">Изменить пользователя</string>
-    <string name="deleteuser">"Удалить пользователя</string>
+    <string name="deleteuser">Удалить пользователя</string>
+    <string name="doyouwanttodelete">Хотите ли Вы удалить данного пользователя?</string>
 </resources>

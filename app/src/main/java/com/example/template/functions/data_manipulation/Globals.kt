@@ -10,7 +10,5 @@ import com.example.template.model.User
 val globalToken: MutableLiveData<String> = MutableLiveData()
 val globalEmail: MutableLiveData<String> = MutableLiveData()
 val globalChangeUser: MutableLiveData<User> = MutableLiveData()
+val globalDeleteUser: MutableLiveData<User> = MutableLiveData()
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "auth_prefs")
-
-lateinit var deletionRequestedUser: User
-// val userrole: MutableLiveData<String> = MutableLiveData()

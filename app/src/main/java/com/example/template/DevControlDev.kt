@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import com.example.template.model.UsersAdapter
-import com.example.template.functions.data_manipulation.deletionRequestedUser
 import com.example.template.repository.Repository
 import com.example.template.viewModel.MainViewModel
 import com.example.template.viewModelFactory.MainViewModelFactory

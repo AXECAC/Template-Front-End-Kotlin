@@ -34,7 +34,8 @@
     <string name="getuser">Get User</string>
     <string name="getusers">Get Users</string>
     <string name="changeuser">Change User</string>
-    <string name="deleteuser">"Delete User</string>
+    <string name="deleteuser">Delete User</string>
+    <string name="doyouwanttodelete">Do you want to delete the user given?</string>
 
 
     <string name="logout">"Log out</string>

@@ -171,11 +171,7 @@ class MainViewModel(private val repository: Repository): ViewModel() {
 		viewModelScope.launch {
 			val response = repository.delete(id)
 			if (response.code() == 204)
-				myUnitResponse.value = response // not the body,
-												// because Unit is a Unit no matter what,
-												// I'm just not really sure it will
-												// work properly if I don't save the whole
-												// response instance
+				myString.value = "DELETED_SUCCESSFULLY"
 			else
 				myErrorCodeResponse.value = response.code()
 		}

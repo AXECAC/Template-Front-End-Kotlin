@@ -63,7 +63,7 @@ interface API {
 	suspend fun edit(@Header("Authorization") token: String, @Body user: User, @Query("oldEmail") email: String) : Response<CResponse>
 
 	@DELETE("/api/User/DeleteUser")
-	suspend fun delete(@Header("Authorization") token: String, @Body id: Int) : Response<Unit>
+	suspend fun delete(@Header("Authorization") token: String, @Query("id") id: Int) : Response<Unit>
 
 	/*
 	@POST("role") // TODO: change to get request

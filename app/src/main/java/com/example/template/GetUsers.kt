@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.template.functions.checkForInternet
 import com.example.template.functions.data_manipulation.globalChangeUser
+import com.example.template.functions.data_manipulation.globalDeleteUser
 import com.example.template.model.UsersAdapter
 import com.example.template.repository.Repository
 import com.example.template.viewModel.MainViewModel
@@ -54,6 +55,11 @@ class GetUsers : AppCompatActivity() {
 
         globalChangeUser.observe(this, Observer {
             val intent = Intent(this, ChangeUser::class.java)
+            startActivity(intent)
+        })
+
+        globalDeleteUser.observe(this, Observer {
+            val intent = Intent(this, DeleteUser::class.java)
             startActivity(intent)
         })
     }

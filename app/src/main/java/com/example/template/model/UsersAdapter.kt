@@ -8,6 +8,7 @@ import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
 import com.example.template.R
 import com.example.template.functions.data_manipulation.globalChangeUser
+import com.example.template.functions.data_manipulation.globalDeleteUser
 
 
 class UsersAdapter(private val dataSet: MutableList<User>) :
@@ -22,6 +23,7 @@ class UsersAdapter(private val dataSet: MutableList<User>) :
         val firstname: TextView = view.findViewById(R.id.firstname)
         val secondname: TextView = view.findViewById(R.id.secondname)
         val changeButton: Button = view.findViewById(R.id.change)
+        val deleteButton: Button = view.findViewById(R.id.delete)
         init {
             // Define click listener for the ViewHolder's View
             /*
@@ -74,7 +76,12 @@ class UsersAdapter(private val dataSet: MutableList<User>) :
 
         viewHolder.changeButton.setOnClickListener {
             globalChangeUser.value = dataSet[position] // as the value is changed,
-            // the page is notified and we're swithing to the 'change' page
+            // the page is notified and we're switching to the 'change' page
+        }
+
+        viewHolder.deleteButton.setOnClickListener {
+            globalDeleteUser.value = dataSet[position] // as the value is changed,
+            // the page is notified and we're switching to the 'delete' page.
         }
 
         //viewHolder.delete = view.findViewById<Button>(R.id.delete)
